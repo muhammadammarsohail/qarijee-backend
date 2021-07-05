@@ -1,0 +1,47 @@
+Arguments: 
+  /home/nameer/.nvm/versions/node/v16.1.0/bin/node /home/nameer/.nvm/versions/node/v16.1.0/bin/yarn add express jsonwebtoken mongoose dotenv becrypt
+
+PATH: 
+  /home/nameer/.nvm/versions/node/v16.1.0/bin:/home/nameer/anaconda3/condabin:/home/nameer/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/nameer/Android/Sdk/emulator:/home/nameer/Android/Sdk/tools:/home/nameer/Android/Sdk/tools/bin:/home/nameer/Android/Sdk/platform-tools:/home/nameer/snap/flutter/common/flutter/bin:/home/nameer/.local/bin
+
+Yarn version: 
+  1.22.10
+
+Node version: 
+  16.1.0
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/becrypt: Not found
+      at Request.params.callback [as _callback] (/home/nameer/.nvm/versions/node/v16.1.0/lib/node_modules/yarn/lib/cli.js:66988:18)
+      at Request.self.callback (/home/nameer/.nvm/versions/node/v16.1.0/lib/node_modules/yarn/lib/cli.js:140662:22)
+      at Request.emit (node:events:365:28)
+      at Request.<anonymous> (/home/nameer/.nvm/versions/node/v16.1.0/lib/node_modules/yarn/lib/cli.js:141634:10)
+      at Request.emit (node:events:365:28)
+      at IncomingMessage.<anonymous> (/home/nameer/.nvm/versions/node/v16.1.0/lib/node_modules/yarn/lib/cli.js:141556:12)
+      at Object.onceWrapper (node:events:471:28)
+      at IncomingMessage.emit (node:events:377:35)
+      at endReadableNT (node:internal/streams/readable:1312:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+
+npm manifest: 
+  {
+    "name": "server",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
