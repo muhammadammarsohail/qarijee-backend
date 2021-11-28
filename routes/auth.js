@@ -19,7 +19,7 @@ router.get("/", (req, res) => {
 
 router.post("/register", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, username } = req.body;
     // validation
 
     const hashedPassword = await generateHash(password);
@@ -28,6 +28,7 @@ router.post("/register", async (req, res) => {
       email,
       password: hashedPassword,
       jwt: token,
+      username,
     });
     return res.status(201).json(user);
   } catch {
