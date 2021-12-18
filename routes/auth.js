@@ -20,20 +20,17 @@ router.get("/", (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-  console.log('3');
   try {
-    let { email, password, name } = req.body;
+    const { email, password, name } = req.body;
     // validation
-    email = email.toString();
 
     const hashedPassword = await generateHash(password);
     const token = await signJWT(email);
-    console.log('1');
-    const isAlreadyExisting = await doesUserExists({ email });
+    const isAlreadyExisting = await doesUserExists(email);
     console.log('2');
     if (isAlreadyExisting) {
       console.log('already Exists');
-      throw new Error('A user with this email address already exists')
+      return res.status(400).json({"error": "This email address is already taken"});
     }
     const user = await createUser({
       email,

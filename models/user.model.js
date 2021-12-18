@@ -45,6 +45,10 @@ const userSchema = mongoose.Schema({
   recitation: {
     type: String,
     require: false,
+  },
+  availableSlots: {
+    type: Array(),
+    require: false,
   }
 });
 
