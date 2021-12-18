@@ -4,8 +4,10 @@ const { generateHash } = require("../utils/crypt");
 const {
   createUser,
   getUser,
-  getUserByEmail,
+  getUsersByEmail,
+  doesUserExists,
 } = require("../controllers/auth.controllers");
+
 const router = express.Router();
 const authenticated = require("../utils/authenticated");
 
@@ -18,21 +20,30 @@ router.get("/", (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
+  console.log('3');
   try {
-    const { email, password, username } = req.body;
+    let { email, password, name } = req.body;
     // validation
+    email = email.toString();
 
     const hashedPassword = await generateHash(password);
     const token = await signJWT(email);
+    console.log('1');
+    const isAlreadyExisting = await doesUserExists({ email });
+    console.log('2');
+    if (isAlreadyExisting) {
+      console.log('already Exists');
+      throw new Error('A user with this email address already exists')
+    }
     const user = await createUser({
       email,
       password: hashedPassword,
       jwt: token,
-      username,
+      name
     });
     return res.status(201).json(user);
-  } catch {
-    res.status(500).send("Internal server error");
+  } catch(error) {
+    res.status(500).send(error);
   }
 });
 
@@ -51,10 +62,37 @@ router.post("/login", async (req, res) => {
 router.get("/me", authenticated, async (req, res) => {
   try {
     if (req?.user?.email) {
-      const user = await getUserByEmail(req?.user?.email);
+      const user = await getUser(req?.user?.email);
       return user
         ? res.status(200).json(user)
         : res.status(404).send("User not found");
+    }
+  } catch {
+    res.status(500).send("Internal server error");
+  }
+});
+
+router.get("/users", authenticated, async (req, res) => {
+  try {
+    const emails = req?.body?.emails;
+    if (emails) {
+      const user = await getUsersByEmail(emails);
+      return user
+        ? res.status(200).json(user)
+        : res.status(404).send("no user found");
+    }
+  } catch {
+    res.status(500).send("Internal server error");
+  }
+});
+
+router.get("/user", authenticated, async (req, res) => {
+  try {
+    if (req?.body?.email) {
+      const user = await getUsersByEmail([req?.body?.email]);
+      return user
+        ? res.status(200).json(user)
+        : res.status(404).send("No user found");
     }
   } catch {
     res.status(500).send("Internal server error");
