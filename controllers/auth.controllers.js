@@ -3,8 +3,8 @@ const { compareHash } = require("../utils/crypt");
 
 const createUser = async (user) => {
   try {
-    const { email, jwt, name, _id } = await userNS.create(user);
-    return { email, jwt, name, _id };
+    const { email, jwt, name, role, _id } = await userNS.create(user);
+    return { email, jwt, name, role, _id };
   } catch(error) {
     console.log(error);
     throw error;
@@ -78,12 +78,17 @@ const doesUserExists = async (email) => {
 const updateUser = async (id, toBeUpdated) => {};
 
 // eslint-disable-next-line
-const deleteUser = async (id) => {};
+const deleteUsers = async (emails) => {
+  userNS.deleteMany({ 'email' : { $in: emails } }, function (err) {
+    if(err) console.log(err);
+    console.log("Successful deletion");
+  });
+};
 
 module.exports = {
   createUser,
   updateUser,
-  deleteUser,
+  deleteUsers,
   getUser,
   getUsersByEmail,
   doesUserExists,
